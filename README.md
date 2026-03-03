@@ -36,7 +36,7 @@ Uma interface simples em HTML/JavaScript que utiliza a **Fetch API** com funçõ
 1.  **Docker instalado no seu sistema.**
 2.  **Clone o repositório e acesse a pasta:**
     ```bash
-    git clone [https://github.com/Joviviz/gym-system-microservices.git](https://github.com/Joviviz/gym-system-microservices.git)
+    git clone https://github.com/Joviviz/gym-system-microservices.git
     cd gym-system-microservices
     ``` 
 3.  **Suba os serviços:**
