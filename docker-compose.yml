@@ -1,0 +1,21 @@
+version: '3'
+services:
+  access-service:
+    build: ./access-service
+    ports: ["3001:3001"]
+
+  members-service:
+    build: ./members-service
+    ports: ["3003:3003"]
+
+  workout-service:
+    build: ./workout-service
+    ports: ["3004:3004"]
+
+  gateway-service:
+    build: ./gateway-service
+    ports: ["3002:3002"]
+    depends_on:
+      - access-service
+      - members-service
+      - workout-service

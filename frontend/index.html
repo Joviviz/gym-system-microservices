@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <title>GymTech Pro - Admin</title>
+  </head>
+  <body>
+    <h1>GymTech Pro</h1>
+
+    <div class="card">
+      <h3>Registrar Novo Aluno</h3>
+      <input type="text" id="name" placeholder="Nome do Aluno" />
+      <select id="plan">
+        <option value="Basic">Plano Basic</option>
+        <option value="Black">Plano Black</option>
+        <option value="Ultra">Plano Ultra</option>
+      </select>
+      <button onclick="addMember()">Cadastrar</button>
+    </div>
+
+    <div class="card">
+      <h3>Membros Ativos</h3>
+      <ul id="memberList"></ul>
+      <button onclick="fetchMembers()" style="background: #007bff">
+        Atualizar Lista
+      </button>
+    </div>
+
+    <script>
+      const API_URL = "http://localhost:3002/members";
+
+      async function fetchMembers() {
+        const res = await fetch(API_URL);
+        const json = await res.json();
+        const list = document.getElementById("memberList");
+        list.innerHTML = json.data
+          .map(
+            (m) =>
+              `<li><strong>${m.name}</strong> - ${m.plan} (ID: ${m.id})</li>`,
+          )
+          .join("");
+      }
+
+      async function addMember() {
+        const name = document.getElementById("name").value;
+        const plan = document.getElementById("plan").value;
+
+        await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, plan, status: "Ativo" }),
+        });
+
+        document.getElementById("name").value = "";
+        fetchMembers();
+      }
+
+      fetchMembers();
+    </script>
+  </body>
+</html>
